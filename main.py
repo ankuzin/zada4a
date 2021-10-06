@@ -32,8 +32,6 @@ class Student:
         return res
 
 
-
-
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -59,9 +57,6 @@ class Lecturer(Mentor):
         return res
 
 
-
-
-
 class Reviewer(Mentor):
      def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -76,13 +71,6 @@ class Reviewer(Mentor):
      def __str__(self):
         res = f'Имя: {self.name} \n Фамилия: {self.surname} '
         return res
-
-
-cool_reviewer = Reviewer('Some', 'Buddy')
-
-print(cool_reviewer)
-
-
 
 
 best_student = Student('Red', 'Fury', 'M')
@@ -107,19 +95,29 @@ best_student.rate_lecture(cool_lecturer, 'GIT', 12)
 some_student.rate_lecture(some_lecturer, 'Python', 7)
 some_student.rate_lecture(some_lecturer, 'GIT', 10)
 
-
+cool_reviewer = Reviewer('Some', 'Buddy')
 some_reviever = Reviewer('Some', 'Buddy')
 
 some_reviever.rate_hw(best_student, 'Python', 4)
 some_reviever.rate_hw(best_student, 'GIT', 12)
 
-# cool_reviever.rate_hw(some_student, 'Python', 7)
-# cool_reviever.rate_hw(some_student, 'GIT', 10)
+c = some_lecturer.get_avg_grade()
+d = cool_lecturer.get_avg_grade()
+
+a = best_student.get_avg_grade1()
+b = some_student.get_avg_grade1()
 
 
+print(cool_reviewer)
 print(some_lecturer)
 print(some_student)
 
+print(a)
+print(b)
+print(c)
+print(d)
+print(c == d)
+print(a == b)
 
 
 

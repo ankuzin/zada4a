@@ -16,6 +16,7 @@ class Student:
         else:
             return 'Ошибка'
 
+<<<<<<< HEAD
     def get_avg_grade(self):
         sum_lec = 0
         count = 0
@@ -23,6 +24,18 @@ class Student:
             sum_lec += sum(course)
             count += len(course)
         return round(sum_lec / count, 2)
+=======
+    def get_avg_grade1(self):
+        avg = 0
+        for course in self.grades:
+            avg += sum(self.grades[course]) / len(self.grades[course])
+        return avg
+
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            return f'Нет такого студента!'
+        return self.get_avg_grade1() < other.get_avg_grade1()
+>>>>>>> origin/master
 
     def __lt__(self, other):
         if not isinstance(other, Student):
@@ -55,6 +68,7 @@ class Lecturer(Mentor):
 
 
     def get_avg_grade(self):
+<<<<<<< HEAD
         sum_lec = 0
         count = 0
         for course in self.grades.values():
@@ -67,6 +81,18 @@ class Lecturer(Mentor):
             print('Нет такого лектора')
             return
         return self.get_avg_grade() < other.get_avg_grade()
+=======
+        avg = 0
+        for course in self.grades:
+            avg += sum(self.grades[course]) / len(self.grades[course])
+        return avg
+
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            return f'Нет такого лектора!'
+        return self.get_avg_grade() < other.get_avg_grade()
+
+>>>>>>> origin/master
 
     def __str__(self):
         res = f'Имя: {self.name} \n Фамилия: {self.surname} \n Средняя оценка за лекции: {self.get_avg_grade()}'
@@ -125,11 +151,19 @@ some_reviever.rate_hw(some_student, 'GIT', 12)
 
 print(best_student < some_student)
 print(cool_lecturer < some_lecturer)
+<<<<<<< HEAD
 print(cool_reviewer)
 print(some_lecturer)
 print(some_student)
 
 
+=======
+# print(cool_reviewer)
+# print(some_lecturer)
+# print(some_student)
+
+
+>>>>>>> origin/master
 
 
 

@@ -5,7 +5,7 @@ class Student:
         self.gender = gender
         self.finished_courses = []
         self.courses_in_progress = []
-        self.grades = {'Python': [20, 16, 21], 'GIT': [11, 11, 11]}
+        self.grades = {'Python': [2, 6, 1], 'GIT': [9, 1, 7]}
 
     def rate_lecture(self, lecturer, course, grade):
         if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress:
@@ -16,7 +16,7 @@ class Student:
         else:
             return 'Ошибка'
 
-    def get_avg_grade1(self):
+    def get_avg_grade(self):
         sum_lec = 0
         count = 0
         for course in self.grades.values():
@@ -24,11 +24,20 @@ class Student:
             count += len(course)
         return round(sum_lec / count, 2)
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print('Нет такого Студента')
+            return
+        return self.get_avg_grade() < other.get_avg_grade()
+
+
+
+
     def __str__(self):
         res = f'Имя: {self.name} \n Фамилия: {self.surname} \n   ' \
-        f'Средняя  оценка за домашнее задание: {self.get_avg_grade1()} \n'  \
+        f'Средняя  оценка за домашнее задание: {self.get_avg_grade()} \n'  \
         f'Курсы в процессе изучения:{ self.courses_in_progress} \n ' \
-        f'Завершенные курсы: Введение в программирование'
+        f'Завершенные курсы:{self.finished_courses }'
         return res
 
 
@@ -42,15 +51,22 @@ class Mentor:
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
-        self.grades = {'Python': [20, 16, 21], 'GIT': [11, 11, 11]}
+        self.grades = {'Python': [2, 6, 1], 'GIT': [1, 8, 9]}
+
 
     def get_avg_grade(self):
-        sum_lect = 0
+        sum_lec = 0
         count = 0
         for course in self.grades.values():
-            sum_lect += sum(course)
+            sum_lec += sum(course)
             count += len(course)
-        return round(sum_lect / count, 2)
+        return round(sum_lec / count, 2)
+
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            print('Нет такого лектора')
+            return
+        return self.get_avg_grade() < other.get_avg_grade()
 
     def __str__(self):
         res = f'Имя: {self.name} \n Фамилия: {self.surname} \n Средняя оценка за лекции: {self.get_avg_grade()}'
@@ -71,6 +87,10 @@ class Reviewer(Mentor):
      def __str__(self):
         res = f'Имя: {self.name} \n Фамилия: {self.surname} '
         return res
+
+
+
+
 
 
 best_student = Student('Red', 'Fury', 'M')
@@ -100,24 +120,16 @@ some_reviever = Reviewer('Some', 'Buddy')
 
 some_reviever.rate_hw(best_student, 'Python', 4)
 some_reviever.rate_hw(best_student, 'GIT', 12)
+some_reviever.rate_hw(some_student, 'Python', 4)
+some_reviever.rate_hw(some_student, 'GIT', 12)
 
-c = some_lecturer.get_avg_grade()
-d = cool_lecturer.get_avg_grade()
-
-a = best_student.get_avg_grade1()
-b = some_student.get_avg_grade1()
-
-
+print(best_student < some_student)
+print(cool_lecturer < some_lecturer)
 print(cool_reviewer)
 print(some_lecturer)
 print(some_student)
 
-print(a)
-print(b)
-print(c)
-print(d)
-print(c == d)
-print(a == b)
+
 
 
 
